@@ -5,7 +5,6 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
 import { Rubik, Tajawal, Anton, Caveat, Paytone_One, Inter } from 'next/font/google';
-import { Video } from '@imagekit/next';
 
 const googleAdWordsId = 'AW-17614601135';
 
@@ -69,7 +68,6 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/* Google Ads Scripts */}
       <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAdWordsId}`}
@@ -87,30 +85,19 @@ function MyApp({ Component, pageProps }: AppProps) {
       <LanguageProvider>
         <div className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}>
           
-          {/* خلفية الفيديو */}
           <div className="site-bg">
-            <Video
-              className="site-bg-video"
-              urlEndpoint="https://ik.imagekit.io/kq7rvhenqr"
-              src="/Untitled-2025-09-18-08-33-02(copy)-2.mp4"
-              autoPlay
-              loop
-              muted
+            <video 
+              className="site-bg-video" 
+              autoPlay 
+              loop 
+              muted 
               playsInline
-              preload="auto"
-              style={{
-                position: 'fixed',
-                top: '50%',
-                left: '50%',
-                minWidth: '100%',
-                minHeight: '100%',
-                width: 'auto',
-                height: 'auto',
-                transform: 'translate(-50%, -50%)',
-                objectFit: 'cover',
-                zIndex: -2
-              }}
-            />
+            >
+              <source 
+                src="https://ik.imagekit.io/kq7rvhenqr/Untitled-2025-09-18-08-33-02(copy)-2.mp4" 
+                type="video/mp4" 
+              />
+            </video>
             <div className="site-bg-overlay"></div>
           </div>
 
