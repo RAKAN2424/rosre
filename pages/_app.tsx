@@ -5,6 +5,7 @@ import { LanguageProvider } from '@/contexts/LanguageContext';
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
 import { Rubik, Tajawal, Anton, Caveat, Paytone_One, Inter } from 'next/font/google';
+import { Video } from '@imagekit/next';
 
 const googleAdWordsId = 'AW-17614601135';
 
@@ -68,47 +69,51 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      {/* Google Ads Scripts */}
       <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAdWordsId}`}
         strategy="afterInteractive" 
       />
-
       <Script id="google-adwords-config" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
-
           gtag('config', '${googleAdWordsId}');
         `}
       </Script>
 
-     {/* خلفية الفيديو لكل الصفحات */}
-{/* خلفية الفيديو لكل الصفحات */}
-<div className="site-bg">
-  <iframe 
-    className="site-bg-video"
-    src="https://imagekit.io/player/embed/kq7rvhenqr/Untitled-%D9%A2%D9%A0%D9%A2%D9%A5-%D9%A0%D9%A9-%D9%A1%D9%A8%20%D9%A0%D9%A8%20%D9%A3%D9%A3%20%D9%A0%D9%A2(copy)-2.mp4?autoplay=true&loop=true&muted=true&controls=false"
-    allow="autoplay; fullscreen"
-    style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      width: '100vw',
-      height: '100vh',
-      border: 'none',
-      zIndex: -2,
-      pointerEvents: 'none'
-    }}
-  />
-  <div className="site-bg-overlay"></div>
-</div>
-
       <LanguageProvider>
-        <div
-          className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}
-        >
+        <div className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}>
+          
+          {/* خلفية الفيديو */}
+          <div className="site-bg">
+            <Video
+              className="site-bg-video"
+              urlEndpoint="https://ik.imagekit.io/kq7rvhenqr"
+              src="/Untitled-2025-09-18-08-33-02(copy)-2.mp4"
+              autoPlay
+              loop
+              muted
+              playsInline
+              preload="auto"
+              style={{
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                minWidth: '100%',
+                minHeight: '100%',
+                width: 'auto',
+                height: 'auto',
+                transform: 'translate(-50%, -50%)',
+                objectFit: 'cover',
+                zIndex: -2
+              }}
+            />
+            <div className="site-bg-overlay"></div>
+          </div>
+
           <Layout>
             <Component {...pageProps} />
           </Layout>
