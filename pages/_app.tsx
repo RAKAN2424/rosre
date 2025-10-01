@@ -1,14 +1,11 @@
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
-import Script from 'next/script'; // **تم إضافة هذا الاستيراد**
+import Script from 'next/script';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
 import { Rubik, Tajawal, Anton, Caveat, Paytone_One, Inter } from 'next/font/google';
 
-// ==============================================
-// تعريف مُعرّف Google Ads
-// ==============================================
 const googleAdWordsId = 'AW-17614601135';
 
 const rubik = Rubik({
@@ -55,7 +52,6 @@ const inter = Inter({
 
 function MyApp({ Component, pageProps }: AppProps) {
   useEffect(() => {
-    // كود Service Worker
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function () {
         navigator.serviceWorker.register('/sw.js').then(
@@ -72,23 +68,12 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      {/*
-        ==============================================
-        1. شارة Google Tag (gtag.js) - يتم تحميل الكود هنا
-        ==============================================
-      */}
       <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAdWordsId}`}
-        // استراتيجية التحميل: يتم التحميل بعد التفاعل الأولي لتحسين الأداء
         strategy="afterInteractive" 
       />
 
-      {/*
-        ==============================================
-        2. دالة تهيئة Google Tag
-        ==============================================
-      */}
       <Script id="google-adwords-config" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
@@ -98,6 +83,23 @@ function MyApp({ Component, pageProps }: AppProps) {
           gtag('config', '${googleAdWordsId}');
         `}
       </Script>
+
+      {/* خلفية الفيديو */}
+      <div className="site-bg">
+        <video 
+          className="site-bg-video" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source 
+            src="https://imagekit.io/player/embed/kq7rvhenqr/DJI_0017.MP4-360p-2025-01-25-18-59-13.mp4?thumbnail=https%3A%2F%2Fik.imagekit.io%2Fkq7rvhenqr%2FDJ%2520_0017.MP4%2Fik-thumbnail.jpg%3FupdatedAt%3D1737834019542&updatedAt=1737834019542" 
+            type="video/mp4" 
+          />
+        </video>
+        <div className="site-bg-overlay"></div>
+      </div>
 
       <LanguageProvider>
         <div
