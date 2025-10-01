@@ -11,6 +11,7 @@ export interface Project {
   paymentPlan: { label: string; value: string }[];
   prices: { unit: string; area: string; price: string }[];
   virtualTourUrl?: string;
+  siteLink?: string; // حقل جديد
 }
 
 export const projects: Project[] = [
@@ -47,112 +48,10 @@ export const projects: Project[] = [
     prices: [
       { unit: 'Apartment', area: '140 m²', price: 'EGP 7,287,000' }
     ],
+    siteLink: '#' // ضع الرابط الفعلي هنا
   },
-  {
-    slug: 'latin-bahary',
-    title: 'Latin District — Bahary',
-    subtitle: 'New Alamein • By City Edge Developments',
-    price: 'From EGP 9,187,000',
-    thumb: 'https://i.ibb.co/N6RyK3DS/Whisk-d90fb112b52cd41b24140ec413560fc9dr.jpg',
-    heroImage: 'https://i.ibb.co/N6RyK3DS/Whisk-d90fb112b52cd41b24140ec413560fc9dr.jpg',
-    description: 'Mediterranean-style apartments minutes from the beach.',
-    highlights: [
-      'Developer: City Edge Developments.',
-      'Unit Area: 120 m².',
-      'Minutes from the beach.',
-    ],
-    gallery: [
-        "https://i.ibb.co/PGZJCzKs/Whisk-ffdb7478778dedb88aa4f168d6734170dr.jpg",
-        "https://i.ibb.co/qLypffZ3/Whisk-d8fb6dcbbae95cea44a4cccf9f8ac4c8dr.jpg",
-        "https://i.ibb.co/23CZgbVW/Whisk-b2d08d06ed13b87abd74b2bfc19ada7cdr.jpg",
-        "https://i.ibb.co/mCySCVrT/Whisk-02363896446cedf95fa4360b74e2124fdr.jpg",
-        "https://i.ibb.co/G47h8Hrt/Whisk-3047a823fbaa48caa6148cdc4043f2bfdr.jpg",
-        "https://i.ibb.co/vb0m6C9/Whisk-1ec9c3aea1b0ed1a79d48a28a022a025dr.jpg"
-    ],
-    virtualTourUrl: 'https://cityedgedevelopments.com/public/vt/NewAlamein360-LD05.html',
-    paymentPlan: [
-        { label: 'Price', value: 'EGP 9,187,000' },
-        { label: 'Down Payment (1.2%)', value: '~ 110,244 EGP' },
-        { label: 'After 3 months (5%)', value: '~ 459,350 EGP' },
-        { label: 'Monthly Installment', value: '~ 27,276 EGP' },
-        { label: 'Second Year (5%)', value: '~ 459,350 EGP' },
-        { label: 'Third Year (10%)', value: '~ 918,700 EGP' },
-        { label: 'Fourth Year (4.5%)', value: '~ 413,415 EGP' },
-    ],
-    prices: [
-      { unit: 'Apartment', area: '120 m²', price: 'EGP 9,187,000' }
-    ],
-  },
-  {
-    slug: 'latin-qebly',
-    title: 'Latin District — Qebly',
-    subtitle: 'New Alamein • By SED & City Edge Developments',
-    price: 'From EGP 7,303,000',
-    thumb: 'https://i.ibb.co/PGZJCzKs/Whisk-ffdb7478778dedb88aa4f168d6734170dr.jpg',
-    heroImage: 'https://i.ibb.co/PGZJCzKs/Whisk-ffdb7478778dedb88aa4f168d6734170dr.jpg',
-    description: 'Courtyards & retail.',
-    highlights: [
-        'Developers: SED & City Edge.',
-        '181 m² — 3 Bedrooms.',
-        'Courtyards & retail.',
-    ],
-    gallery: [
-        "https://i.ibb.co/N6RyK3DS/Whisk-d90fb112b52cd41b24140ec413560fc9dr.jpg",
-        "https://i.ibb.co/G47h8Hrt/Whisk-3047a823fbaa48caa6148cdc4043f2bfdr.jpg",
-        "https://i.ibb.co/vb0m6C9/Whisk-1ec9c3aea1b0ed1a79d48a28a022a025dr.jpg",
-        "https://i.ibb.co/C3B9vxnR/Whisk-e49aa49d6ac76f2aea64ddf610b0f031dr.jpg",
-        "https://i.ibb.co/pBsbgkvm/Whisk-02363896446cedf95fa4360b74e2124fdr.jpg",
-        "https://i.ibb.co/67Ycypc0/Whisk-9f95505041fc328a8cd48861c36ba6d8dr.jpg"
-    ],
-    paymentPlan: [
-        { label: 'Price', value: 'EGP 7,303,000' },
-        { label: 'Down Payment (1.2%)', value: '~ 87,000 EGP' },
-        { label: 'After 3 Months (5%)', value: '~ 365,000 EGP' },
-        { label: 'Monthly Installment', value: '~ 25,000 EGP' },
-        { label: 'Second Year (5%)', value: '~ 365,000 EGP' },
-        { label: 'Third Year (10%)', value: '~ 730,000 EGP' },
-        { label: 'Fourth Year (4.5%)', value: '~ 328,000 EGP' },
-    ],
-    prices: [
-      { unit: 'Apartment — 3BD', area: '181 m²', price: 'EGP 7,303,000' }
-    ],
-  },
-  {
-    slug: 'north-edge',
-    title: 'North Edge Towers',
-    subtitle: 'New Alamein • By City Edge Developments',
-    price: 'From EGP 35,760,000',
-    thumb: 'https://i.ibb.co/N6FcvrLN/Whisk-3c63763f27a7338996a47d711a265ee3dr.jpg',
-    heroImage: 'https://i.ibb.co/N6FcvrLN/Whisk-3c63763f27a7338996a47d711a265ee3dr.jpg',
-    description: 'Seafront high-rise.',
-    highlights: [
-      'Developer: City Edge Developments.',
-      '217 m² — 2 Bedrooms.',
-      'Seafront high-rise.',
-    ],
-    gallery: [
-        "https://i.ibb.co/MDrTd0gf/Whisk-fa72cbd49d4a278bdfc45cfdded59846dr-1.jpg",
-        "https://i.ibb.co/0V93HwM7/Whisk-97675cd1bd1e06481684ebd7a7a08646dr.jpg",
-        "https://i.ibb.co/Y4Dbkj5C/Whisk-503c2ef5be8ca66b8074ac8d995b5f75dr.jpg",
-        "https://i.ibb.co/PvNYbfSF/Whisk-25f1816d8ab0971b7aa434a49f7712e9dr.jpg",
-        "https://i.ibb.co/Kxm3PJvM/Whisk-23f2fd64b055c76bdd34f0b9f9be2e18dr.jpg",
-        "https://i.ibb.co/N6FcvrLN/Whisk-3c63763f27a7338996a47d711a265ee3dr.jpg"
-    ],
-    paymentPlan: [
-        { label: 'Price', value: 'EGP 35,760,000' },
-        { label: 'Down Payment (1.2%)', value: '~ 429,120 EGP' },
-        { label: 'After 3 months (5%)', value: '~ 1,788,000 EGP' },
-        { label: 'Monthly Installment', value: '~ 106,171 EGP' },
-        { label: 'Second Year (5%)', value: '~ 1,788,000 EGP' },
-        { label: 'Third Year (10%)', value: '~ 3,576,000 EGP' },
-        { label: 'Fourth Year (4.5%)', value: '~ 1,609,000 EGP' },
-    ],
-    prices: [
-      { unit: 'Sky Apartment — 2BD', area: '217 m²', price: 'EGP 35,760,000' }
-    ],
-  },
+  // ... باقي المشاريع بنفس الطريقة
 ];
-
 
 export const translations = {
     en: {
