@@ -1,150 +1,319 @@
-import { FC, ReactNode, useState, useEffect } from 'react';
+import { FC, useState, useEffect, useRef } from 'react';
+import { GetStaticProps } from 'next';
 import Link from 'next/link';
+import Head from 'next/head';
+import Image from 'next/image';
 import { useTranslation } from '@/hooks/useTranslation';
-import { projects } from '@/lib/data';
-import { useRouter } from 'next/router';
+import { projects, Project, generateWhatsappUrl } from '@/lib/data';
 
-const Header: FC = () => {
-  const { t, lang, setLang } = useTranslation();
-  const [isMobileNavOpen, setMobileNavOpen] = useState(false);
-  const toggleLanguage = () => {
-    setLang(lang === 'en' ? 'ar' : 'en');
-  };
-  const toggleMobileNav = () => {
-    setMobileNavOpen(!isMobileNavOpen);
-  };
+// Custom hook for scroll animations
+const useScrollAnimate = (options = { threshold: 0.1 }) => {
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
-    document.body.classList.toggle('mobile-nav-open', isMobileNavOpen);
-  }, [isMobileNavOpen]);
-  
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      options,
+    );
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+    const currentRef = ref.current;
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [options]);
+  return ref;
+};
+
+const slides = [
+  'https://i.ibb.co/N6RyK3DS/Whisk-d90fb112b52cd41b24140ec413560fc9dr.jpg',
+  'https://i.ibb.co/dJML7pMG/Dark-Blue-and-Gold-Minimalist-Real-Estate-Facebook-Ad.png',
+  'https://i.ibb.co/qMBHN1MC/Whisk-547472c4b29df5faed54d1b445fdd235eg.png',
+  'https://i.ibb.co/spJtRNk0/17b6816d-9bcd-46c9-b023-35786b636125.jpg',
+  'https://i.ibb.co/DfMPbtX3/5.png',
+  'https://i.ibb.co/fVHN4MtB/3.png',
+];
+
+const Hero: FC = () => {
+  const { t } = useTranslation();
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % slides.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
   return (
-    <>
-      <header className="topbar">
-        <div className="container topbar-wrap">
-          <Link href="/" className="brand" title="SIGHT Home">
-            {/* تم تحديث اللوجو هنا */}
-            <span 
-              className="logo" 
-              aria-hidden="true"
-              style={{
-                backgroundImage: 'url(https://i.ibb.co/ymZ86shD/Untitled-design-1.gif)',
-              }}
-            ></span>
-          </Link>
-          <nav className="nav">
-            <div className="nav-item">
-              <span className="nav-link" dangerouslySetInnerHTML={{ __html: t('navProps') }} />
-              <div className="dropdown-content">
-                {projects.map((p) => (
-                  <Link key={p.slug} href={`/projects/${p.slug}`} className="nav-sitelink">
-                    {p.title}
-                  </Link>
-                ))}
-              </div>
-            </div>
-            <a href="/#services" className="nav-link" dangerouslySetInnerHTML={{ __html: t('navStore') }} />
-            <a href="/#contact" className="nav-link" dangerouslySetInnerHTML={{ __html: t('navContact') }} />
-            <a href="/#about-section" className="nav-link" dangerouslySetInnerHTML={{ __html: t('navAbout') }} />
-          </nav>
-          <div className="controls">
-            <button onClick={toggleLanguage} className="cta outline" aria-label="Toggle language">
-              {lang === 'ar' ? 'English' : 'العربية'}
-            </button>
-          </div>
-          <button
-            id="mobileNavToggle"
-            onClick={toggleMobileNav}
-            className="mobile-nav-toggle"
-            aria-label="Open menu"
-            aria-controls="mobileNavOverlay"
-            aria-expanded={isMobileNavOpen}
-          >
-            <span className="hamburger-icon"></span>
-          </button>
-        </div>
-      </header>
-      <div
-        id="mobileNavOverlay"
-        className="mobile-nav-overlay"
-        role="dialog"
-        aria-modal="true"
-        onClick={() => setMobileNavOpen(false)}
-      >
-        <nav className="nav" onClick={(e) => e.stopPropagation()}>
-          <div className="nav-item">
-            <span className="nav-link" dangerouslySetInnerHTML={{ __html: t('navProps') }} />
-            <div className="dropdown-content">
-              {projects.map((p) => (
-                <Link
-                  key={p.slug}
-                  href={`/projects/${p.slug}`}
-                  className="nav-sitelink"
-                  onClick={toggleMobileNav}
-                >
-                  {p.title}
-                </Link>
-              ))}
-            </div>
-          </div>
-          <a href="/#services" className="nav-link" dangerouslySetInnerHTML={{ __html: t('navStore') }} onClick={toggleMobileNav} />
-          <a href="/#contact" className="nav-link" dangerouslySetInnerHTML={{ __html: t('navContact') }} onClick={toggleMobileNav} />
-          <a href="/#about-section" className="nav-link" dangerouslySetInnerHTML={{ __html: t('navAbout') }} onClick={toggleMobileNav} />
-        </nav>
-        <div className="controls">
-          <button onClick={toggleLanguage} id="langToggleMobile" className="cta outline" aria-label="Toggle language">
-            {lang === 'ar' ? 'English' : 'العربية'}
-          </button>
+    <section className="hero">
+      <div className="slides">
+        {slides.map((src, index) => (
+          <div
+            key={src}
+            className={`slide ${index === currentSlide ? 'is-active' : ''}`}
+            style={{ backgroundImage: `url('${src}')` }}
+          ></div>
+        ))}
+      </div>
+      <div className="hero-overlay">
+        <h1 className="title" dangerouslySetInnerHTML={{ __html: t('heroTitle') }}></h1>
+        <p className="tagline" dangerouslySetInnerHTML={{ __html: t('heroTag') }}></p>
+        <div className="cta-row">
+          <a href="#gallery-section" className="cta" dangerouslySetInnerHTML={{ __html: t('ctaView') }}></a>
+          <a
+            href={generateWhatsappUrl({})}
+            className="cta outline"
+            target="_blank"
+            rel="noopener noreferrer"
+            dangerouslySetInnerHTML={{ __html: t('ctaWhatsapp') }}
+          ></a>
         </div>
       </div>
-    </>
+      <div id="dots" className="dots">
+        {slides.map((_, index) => (
+          <div
+            key={index}
+            className={`dot ${index === currentSlide ? 'is-active' : ''}`}
+            onClick={() => setCurrentSlide(index)}
+          ></div>
+        ))}
+      </div>
+      <div className="hero-fade-bottom"></div>
+    </section>
   );
 };
 
-const SocialAside: FC = () => {
+const ProjectCard: FC<{ project: Project }> = ({ project }) => {
+  const { t } = useTranslation();
   return (
-    <>
-      <aside className="social" aria-label="Social links">
-        <a href="https://www.facebook.com/SIGHTRealEstate.eg" target="_blank" aria-label="Facebook" rel="noopener" title="Facebook">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-          </svg>
-        </a>
-        <a href="https://www.instagram.com/sightrealestate.eg" target="_blank" aria-label="Instagram" rel="noopener" title="Instagram">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect width="20" height="20" x="2" y="2" rx="5" ry="5"></rect>
-            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line>
-          </svg>
-        </a>
-        <a href="https://api.whatsapp.com/send?phone=201099993903" target="_blank" aria-label="WhatsApp" rel="noopener" title="WhatsApp">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12.04 2C6.58 2 2.13 6.45 2.13 12c0 1.74.45 3.48 1.34 5l-1.4 5.02 5.13-1.37c1.45.81 3.09 1.25 4.74 1.25h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2"></path>
-          </svg>
-        </a>
-        <a href="tel:+201099993903" aria-label="Call" title="Call">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24c1.12.37 2.33.57 3.57.57c.55 0 1 .45 1 1V20c0 .55-.45 1-1 1c-9.39 0-17-7.61-17-17c0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1c0 2.01.49 3.92 1.4 5.79z" />
-          </svg>
-        </a>
-      </aside>
-    </>
+    <Link href={`/projects/${project.slug}`} className="card-link">
+      <article className="card">
+        <div className="thumb" style={{ backgroundImage: `url('${project.thumb}')` }}></div>
+        <div className="card-body">
+          <h3 className="card-title">{project.title}</h3>
+          <span className="price">{project.price}</span>
+          <div className="card-cta-wrapper">
+            <span className="btn card-cta" dangerouslySetInnerHTML={{ __html: t('viewDetails') }} />
+          </div>
+        </div>
+      </article>
+    </Link>
   );
 };
 
-interface LayoutProps {
-  children: ReactNode;
+const PropertyGallery: FC<{ projects: Project[] }> = ({ projects }) => {
+  const { t } = useTranslation();
+  const sectionRef = useScrollAnimate({ threshold: 0.05 });
+  return (
+    <section id="gallery-section" className="section scroll-animate" ref={sectionRef}>
+      <div className="container">
+        <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('galleryTitle') }} />
+        <div className="grid">
+          {projects.map((p) => (
+            <ProjectCard key={p.slug} project={p} />
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ServicesSection: FC = () => {
+  const { t } = useTranslation();
+  const sectionRef = useScrollAnimate({ threshold: 0.1 });
+  return (
+    <section id="services" className="section scroll-animate" ref={sectionRef}>
+      <div className="container">
+        <h2 className="section-title" data-i18n="ourServices" dangerouslySetInnerHTML={{ __html: t('ourServices') }} />
+        <div className="services-grid">
+          <div className="service-card">
+            <div className="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M12 21V3m0 0-4 4M12 3l4 4" />
+                <path d="M3 13.25a9 9 0 1 0 18 0" />
+                <path d="M12 12v-1.25a4.5 4.5 0 0 0-4.5-4.5h-1.5" />
+              </svg>
+            </div>
+            <h3 className="service-title" dangerouslySetInnerHTML={{ __html: t('service1Title') }} />
+            <p className="service-desc" dangerouslySetInnerHTML={{ __html: t('service1Desc') }} />
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="12" y1="1" x2="12" y2="23"></line>
+                <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+              </svg>
+            </div>
+            <h3 className="service-title" dangerouslySetInnerHTML={{ __html: t('service2Title') }} />
+            <p className="service-desc" dangerouslySetInnerHTML={{ __html: t('service2Desc') }} />
+          </div>
+          <div className="service-card">
+            <div className="service-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="m14.5 3.5-1.5 1.5 2.5 2.5 1.5-1.5-2.5-2.5z"></path>
+                <path d="M13.5 6.5 7 13l-4 4 6 6 7-7-3.5-3.5z"></path>
+                <path d="m18 11 1-1"></path>
+                <path d="m19 12 1-1"></path>
+                <path d="m2 22 6-6"></path>
+                <path d="m3.5 17.5 4-4"></path>
+              </svg>
+            </div>
+            <h3 className="service-title" dangerouslySetInnerHTML={{ __html: t('service3Title') }} />
+            <p className="service-desc" dangerouslySetInnerHTML={{ __html: t('service3Desc') }} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const AboutSection: FC = () => {
+  const { t } = useTranslation();
+  const [activeTab, setActiveTab] = useState('about');
+  const sectionRef = useScrollAnimate();
+  return (
+    <section id="about-section" className="section scroll-animate" ref={sectionRef}>
+      <div className="container">
+        <div className="segbar">
+          <button
+            className={`seg-btn ${activeTab === 'about' ? 'is-active' : ''}`}
+            onClick={() => setActiveTab('about')}
+            dangerouslySetInnerHTML={{ __html: t('aboutTab') }}
+          />
+          <button
+            className={`seg-btn ${activeTab === 'location' ? 'is-active' : ''}`}
+            onClick={() => setActiveTab('location')}
+            dangerouslySetInnerHTML={{ __html: t('locTab') }}
+          />
+        </div>
+        <div className="segpanels">
+          <div id="about" className={`panel ${activeTab === 'about' ? 'show' : ''}`}>
+            <div className="about-card">
+              <div className="about-hero" style={{ backgroundImage: "url('https://i.ibb.co/ZzBR3fDD/Untitled-design.png')" }}></div>
+              <div className="about-text">
+                <ul className="about-values">
+                  <li>A trusted presence across every governorate in Egypt.</li>
+                  <li>Property offerings tailored to the needs of businesses and private buyers.</li>
+                  <li>Integrated, sustainable solutions that deliver long-term value.</li>
+                  <li>Clients come first. Profit is secondary; true success is seeing people thrive.</li>
+                  <li>We act with integrity to make sure you get what you are owed.</li>
+                  <li>We guide you to the right property that fits your needs and comfort.</li>
+                  <li>We provide continuous support and follow-up — not a one-time sale focused only on profit.</li>
+                </ul>
+                <p dangerouslySetInnerHTML={{ __html: t('credits') }} />
+              </div>
+            </div>
+          </div>
+          <div id="location" className={`panel ${activeTab === 'location' ? 'show' : ''}`}>
+            <div className="map-embed">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.894326998634!2d29.95133541514271!3d31.19942208147665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c3d7b8be9e6f%3A0x8c6d8665261498a7!2sAlexandria%2C%20Egypt!5e0!3m2!1sen!2sus!4v1620000000000!5m2!1sen!2sus"
+                loading="lazy"
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const ContactForm: FC = () => {
+  const { t } = useTranslation();
+  const sectionRef = useScrollAnimate();
+  const [name, setName] = useState('');
+  const [phone, setPhone] = useState('');
+  const [email, setEmail] = useState('');
+  const handleSend = () => {
+    const url = generateWhatsappUrl({ name, phone, email });
+    window.open(url, '_blank');
+  };
+  return (
+    <section id="contact" className="section scroll-animate" ref={sectionRef}>
+      <div className="container">
+        <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('requestCallback') }} />
+        <div className="contact">
+          <div className="form">
+            <div className="form-hero" style={{ backgroundImage: "url('https://i.ibb.co/0RS3Dvhd/f23dfca5-21bc-4bf8-a561-1f012c3e7582.png')" }}></div>
+            <h4 dangerouslySetInnerHTML={{ __html: t('formTitle') }} />
+            <div className="field">
+              <span dangerouslySetInnerHTML={{ __html: t('name') }} />
+              <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder={t('namePh')} />
+            </div>
+            <div className="field">
+              <span dangerouslySetInnerHTML={{ __html: t('phone') }} />
+              <input type="tel" value={phone} onChange={(e) => setPhone(e.target.value)} placeholder={t('phonePh')} />
+            </div>
+            <div className="field">
+              <span dangerouslySetInnerHTML={{ __html: t('email') }} />
+              <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('emailPh')} />
+            </div>
+            <button onClick={handleSend} className="btn send book" dangerouslySetInnerHTML={{ __html: t('sendWhats') }} />
+
+            {/* إضافة رابط واتساب مباشر كـ Site Link */}
+            <a
+              href="https://wa.me/201099993903"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn site-link whatsapp-direct"
+              aria-label="Contact via WhatsApp"
+              style={{ marginTop: '16px', display: 'block', textAlign: 'center' }}
+            >
+              تواصل معنا مباشرة على WhatsApp
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+interface HomePageProps {
+  projects: Project[];
 }
 
-const Layout: FC<LayoutProps> = ({ children }) => {
-  const router = useRouter();
-  const isHome = router.pathname === '/';
+const HomePage: FC<HomePageProps> = ({ projects }) => {
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // التمرير التلقائي إلى قسم الهيرو عند تحميل الصفحة
+  useEffect(() => {
+    if (heroRef.current) {
+      heroRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
     <>
-      <Header />
-      <main>{children}</main>
-      {isHome && <SocialAside />}
+      <Head>
+        <title>SIGHT Real Estate Development</title>
+      </Head>
+      <div ref={heroRef}>
+        <Hero />
+      </div>
+      <PropertyGallery projects={projects} />
+      <ServicesSection />
+      <AboutSection />
+      <ContactForm />
     </>
   );
 };
 
-export default Layout;
+export const getStaticProps: GetStaticProps = async () => {
+  return {
+    props: {
+      projects,
+    },
+  };
+};
+
+export default HomePage;
