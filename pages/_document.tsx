@@ -1,9 +1,31 @@
 import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
+  const googleAdWordsId = 'AW-17614601135';
+
   return (
-    <Html>
+    // تم إضافة سمة dir="rtl" هنا لضمان اتجاه الكتابة من اليمين لليسار
+    <Html lang="ar" dir="rtl">
       <Head>
+        {/* ==============================================
+          Google Tag (gtag.js) - تمت الإضافة هنا
+          ============================================== */}
+        <script
+          async
+          src={`https://www.googletagmanager.com/gtag/js?id=${googleAdWordsId}`}
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', '${googleAdWordsId}');
+            `,
+          }}
+        />
+        {/* ============================================== */}
+        
         <meta
           name="description"
           content="SIGHT Real Estate Development — Sustainable solutions and strategic locations for office & commercial spaces."
