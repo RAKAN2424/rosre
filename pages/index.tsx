@@ -259,6 +259,18 @@ const ContactForm: FC = () => {
               <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder={t('emailPh')} />
             </div>
             <button onClick={handleSend} className="btn send book" dangerouslySetInnerHTML={{ __html: t('sendWhats') }} />
+
+            {/* إضافة رابط واتساب مباشر كـ Site Link */}
+            <a
+              href="https://wa.me/201099993903"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn site-link whatsapp-direct"
+              aria-label="Contact via WhatsApp"
+              style={{ marginTop: '16px', display: 'block', textAlign: 'center' }}
+            >
+              تواصل معنا مباشرة على WhatsApp
+            </a>
           </div>
         </div>
       </div>
@@ -271,12 +283,23 @@ interface HomePageProps {
 }
 
 const HomePage: FC<HomePageProps> = ({ projects }) => {
+  const heroRef = useRef<HTMLDivElement>(null);
+
+  // التمرير التلقائي إلى قسم الهيرو عند تحميل الصفحة
+  useEffect(() => {
+    if (heroRef.current) {
+      heroRef.current.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
     <>
       <Head>
         <title>SIGHT Real Estate Development</title>
       </Head>
-      <Hero />
+      <div ref={heroRef}>
+        <Hero />
+      </div>
       <PropertyGallery projects={projects} />
       <ServicesSection />
       <AboutSection />
