@@ -93,9 +93,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           muted 
           playsInline
         >
-          <source 
-            src="https://imagekit.io/player/embed/kq7rvhenqr/Untitled-%D9%A2%D9%A0%D9%A2%D9%A5-%D9%A0%D9%A9-%D9%A1%D9%A8%20%D9%A0%D9%A8%20%D9%A3%D9%A3%20%D9%A0%D9%A2(copy)-2.mp4" 
-            type="video/mp4" 
+        <source 
+  src="https://imagekit.io/player/embed/kq7rvhenqr/Untitled-%D9%A2%D9%A0%D9%A2%D9%A5-%D9%A0%D9%A9-%D9%A1%D9%A8%20%D9%A0%D9%A8%20%D9%A3%D9%A3%20%D9%A0%D9%A2(copy)-2.mp4" 
+  type="video/mp4" 
           />
         </video>
         <div className="site-bg-overlay"></div>
