@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState, useEffect, useRef } from 'react';
+import { FC, ReactNode, useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useTranslation } from '@/hooks/useTranslation';
 import { projects } from '@/lib/data';
@@ -16,12 +16,20 @@ const Header: FC = () => {
   useEffect(() => {
     document.body.classList.toggle('mobile-nav-open', isMobileNavOpen);
   }, [isMobileNavOpen]);
+  
   return (
     <>
       <header className="topbar">
         <div className="container topbar-wrap">
           <Link href="/" className="brand" title="SIGHT Home">
-            <span className="logo" aria-hidden="true"></span>
+            {/* تم تحديث اللوجو هنا */}
+            <span 
+              className="logo" 
+              aria-hidden="true"
+              style={{
+                backgroundImage: 'url(https://i.ibb.co/ymZ86shD/Untitled-design-1.gif)',
+              }}
+            ></span>
           </Link>
           <nav className="nav">
             <div className="nav-item">
@@ -93,7 +101,6 @@ const Header: FC = () => {
 };
 
 const SocialAside: FC = () => {
-  const [isQrModalOpen, setQrModalOpen] = useState(false);
   return (
     <>
       <aside className="social" aria-label="Social links">
@@ -135,7 +142,6 @@ const Layout: FC<LayoutProps> = ({ children }) => {
     <>
       <Header />
       <main>{children}</main>
-      {/* Place social aside outside of mobile nav overlay so it's always visible */}
       {isHome && <SocialAside />}
     </>
   );
