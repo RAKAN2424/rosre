@@ -85,6 +85,7 @@ function MyApp({ Component, pageProps }: AppProps) {
       </Script>
 
      {/* خلفية الفيديو لكل الصفحات */}
+{/* خلفية الفيديو لكل الصفحات */}
 <div className="site-bg">
   <iframe 
     className="site-bg-video"
