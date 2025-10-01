@@ -73,34 +73,37 @@ function MyApp({ Component, pageProps }: AppProps) {
         src={`https://www.googletagmanager.com/gtag/js?id=${googleAdWordsId}`}
         strategy="afterInteractive" 
       />
+
       <Script id="google-adwords-config" strategy="afterInteractive">
         {`
           window.dataLayer = window.dataLayer || [];
           function gtag(){dataLayer.push(arguments);}
           gtag('js', new Date());
+          
           gtag('config', '${googleAdWordsId}');
         `}
       </Script>
 
-      <LanguageProvider>
-        <div className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}>
-          
-          <div className="site-bg">
-            <video 
-              className="site-bg-video" 
-              autoPlay 
-              loop 
-              muted 
-              playsInline
-            >
-              <source 
-                src="https://ik.imagekit.io/kq7rvhenqr/Untitled-2025-09-18-08-33-02(copy)-2.mp4" 
-                type="video/mp4" 
-              />
-            </video>
-            <div className="site-bg-overlay"></div>
-          </div>
+      <div className="site-bg">
+        <video 
+          className="site-bg-video" 
+          autoPlay 
+          loop 
+          muted 
+          playsInline
+        >
+          <source 
+            src="https://ik.imagekit.io/kq7rvhenqr/Untitled-2025-09-18-08-33-02(copy)-2.mp4" 
+            type="video/mp4" 
+          />
+        </video>
+        <div className="site-bg-overlay"></div>
+      </div>
 
+      <LanguageProvider>
+        <div
+          className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}
+        >
           <Layout>
             <Component {...pageProps} />
           </Layout>
