@@ -1,12 +1,9 @@
 import type { AppProps } from 'next/app';
 import { useEffect } from 'react';
-import Script from 'next/script';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import Layout from '@/components/Layout';
 import '@/styles/globals.css';
 import { Rubik, Tajawal, Anton, Caveat, Paytone_One, Inter } from 'next/font/google';
-
-const googleAdWordsId = 'AW-17614601135';
 
 const rubik = Rubik({
   subsets: ['latin'],
@@ -67,49 +64,32 @@ function MyApp({ Component, pageProps }: AppProps) {
   }, []);
 
   return (
-    <>
-      <Script
-        async
-        src={`https://www.googletagmanager.com/gtag/js?id=${googleAdWordsId}`}
-        strategy="afterInteractive" 
-      />
-
-      <Script id="google-adwords-config" strategy="afterInteractive">
-        {`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          
-          gtag('config', '${googleAdWordsId}');
-        `}
-      </Script>
-
-      <div className="site-bg">
-        <video 
-          className="site-bg-video" 
-          autoPlay 
-          loop 
-          muted 
-          playsInline
-        >
-          <source 
-            src="https://ik.imagekit.io/kq7rvhenqr/Untitled-2025-09-18-08-33-02(copy)-2.mp4" 
-            type="video/mp4" 
-          />
-        </video>
-        <div className="site-bg-overlay"></div>
-      </div>
-
-      <LanguageProvider>
-        <div
-          className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}
-        >
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+    <LanguageProvider>
+      <div
+        className={`${rubik.variable} ${tajawal.variable} ${anton.variable} ${caveat.variable} ${paytone_one.variable} ${inter.variable}`}
+      >
+        {/* Video Background - Fixed for all pages */}
+        <div className="site-bg">
+          <video
+            className="site-bg-video"
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="auto"
+          >
+            <source 
+              src="https://ik.imagekit.io/kq7rvhenqr/Untitled-%D9%A2%D9%A0%D9%A2%D9%A5-%D9%A0%D9%A9-%D9%A1%D9%A8%20%D9%A0%D9%A8%20%D9%A3%D9%A3%20%D9%A0%D9%A2(copy)-2.mp4" 
+              type="video/mp4" 
+            />
+          </video>
+          <div className="site-bg-overlay"></div>
         </div>
-      </LanguageProvider>
-    </>
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </div>
+    </LanguageProvider>
   );
 }
 
