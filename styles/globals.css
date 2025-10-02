@@ -1,15 +1,13 @@
 /* ===== الأساسيات والهوية ===== */
 :root {
-  --gold: #FFD54F; /* Even brighter gold */
-  --gold-2: #FFEE58; /* Even brighter secondary gold */
-  --bg: #050505;
-  --panel-bg: rgba(20, 20, 20, 0.45);
-  --muted: #A0ACB8; /* More saturated muted color */
-  --text: #f5f7fa;
-  --border: rgba(255, 213, 79, 0.3); /* Updated to match new gold */
-  --border-glass: rgba(255, 213, 79, 0.25); /* Tinted with gold */
+  --gold: #FFC107; /* More saturated, vibrant gold */
+  --gold-2: #FFD54F; /* More saturated secondary gold */
+  --panel-bg: rgba(20, 20, 20, 0.5);
+  --muted: #B0BEC5; /* More saturated muted color */
+  --text: #FFFFFF; /* Pure white for maximum contrast */
+  --border: rgba(255, 193, 7, 0.4); /* More visible border */
+  --border-glass: rgba(255, 193, 7, 0.35); /* Tinted with gold */
 }
-
 * {
   box-sizing: border-box;
 }
@@ -25,9 +23,6 @@ body {
   font-family: var(--font-rubik), var(--font-tajawal), system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, sans-serif;
   line-height: 1.6;
   transition: background .2s, color .2s;
-  /* For Parallax Effect */
-  perspective: 1px;
-  transform-style: preserve-3d;
   overflow-x: hidden;
 }
 
@@ -43,21 +38,19 @@ a {
   padding: 24px;
 }
 
-/* ===== خلفية الفيديو - مع تأثير بارالاكس ===== */
+/* ===== خلفية الفيديو - بدون zoom ===== */
 .site-bg{
   position: fixed;
   inset: 0;
   z-index: -2;
   pointer-events: none;
-  /* Parallax: push to the back and scale up */
-  transform: translateZ(-1px) scale(2);
 }
 .site-bg-video{
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center;
-  filter: brightness(.6) saturate(190%);
+  filter: brightness(.8) saturate(210%) contrast(1.15);
 }
 .site-bg-overlay{
   position: absolute;
@@ -66,13 +59,12 @@ a {
   background:
     radial-gradient(ellipse at center,
       rgba(0,0,0,0) 0%,
-      rgba(0,0,0,.55) 70%)
+      rgba(0,0,0,.5) 70%)
     ;
 }
 
 main {
-  /* For Parallax Effect */
-  transform-style: preserve-3d;
+  position: relative;
 }
 
 /* ===== التوب بار ===== */
@@ -106,12 +98,12 @@ main {
   text-shadow: 0 4px 22px rgba(0,0,0,.9), 0 0 6px rgba(0,0,0,.9);
   transform: translateY(-32px);
   position: relative;
-  z-index: 1001; /* Ensure logo is above mobile nav overlay */
+  z-index: 1001;
 }
 .brand .logo{
   width: 152px;
   height: 152px;
-  background: transparent url('https://i.ibb.co/7jZkX2c/SIGHT-Logo-Static-Gold-PNG.png') center/contain no-repeat;
+  background: transparent url('https://i.ibb.co/ymZ86shD/Untitled-design-1.gif') center/contain no-repeat;
   display:inline-block;
 }
 
@@ -129,6 +121,7 @@ main {
     0 3px 14px rgba(0,0,0,.95),
     0 0 6px rgba(0,0,0,.9);
   transition: transform .2s ease, opacity .2s ease;
+  filter: saturate(1.2) brightness(1.1);
 }
 .nav-link:hover{ transform: translateY(-1px); opacity:.95; }
 .nav-item>span.nav-link{ cursor: default; }
@@ -199,7 +192,7 @@ main {
   transform: scale(1);
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
-  filter: saturate(190%) brightness(1.1);
+  filter: saturate(210%) brightness(1.15) contrast(1.1);
 }
 
 .slide.is-active {
@@ -212,7 +205,7 @@ main {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(180deg, rgba(0, 0, 0, .4), rgba(0, 0, 0, .2) 40%, rgba(0, 0, 0, .8));
+  background: linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, .15) 40%, rgba(0, 0, 0, .75));
 }
 
 .hero-overlay {
@@ -230,25 +223,28 @@ main {
   margin: 0;
   text-transform: uppercase;
   color: var(--gold);
-  text-shadow: 0 5px 30px rgba(0, 0, 0, 0.9), 0 2px 5px rgba(0, 0, 0, 1);
+  text-shadow: 0 5px 30px rgba(255, 193, 7, 0.7), 0 2px 5px rgba(0, 0, 0, 1), 0 0 20px rgba(255, 193, 7, 0.4);
   line-height: 1.3;
+  filter: saturate(1.3) brightness(1.15) contrast(1.1);
 }
 
 .title strong {
-  color: #fff;
+  color: #FFFFFF;
   font-weight: 400;
   font-size: 0.9em;
-  text-shadow: 0px 5px 18px rgba(0, 0, 0, 0.9);
+  text-shadow: 0px 5px 18px rgba(0, 0, 0, 0.9), 0 0 15px rgba(255, 255, 255, 0.3);
+  filter: saturate(1.2) brightness(1.2);
 }
 
 .tagline {
   margin-top: 8px;
   text-align: center;
-  color: #e5e7eb;
+  color: #FFFFFF;
   font-size: 18px;
-  opacity: .95;
+  opacity: .98;
   font-family: var(--font-caveat), cursive;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 1), 0 0 8px rgba(0, 0, 0, 0.8);
+  filter: brightness(1.1);
 }
 
 .cta-row {
@@ -266,34 +262,37 @@ main {
   gap: 10px;
   padding: 12px 28px;
   border-radius: 999px;
-  background: rgba(255, 193, 7, 0.85);
+  background: rgba(255, 193, 7, 0.9);
   color: #000;
   font-weight: 800;
   border: 1px solid transparent;
   cursor: pointer;
-  box-shadow: 0 8px 22px rgba(0,0,0, .35);
+  box-shadow: 0 8px 22px rgba(255, 193, 7, .4);
   transition: all .3s ease;
   white-space: nowrap;
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+  filter: saturate(1.2) brightness(1.05);
 }
 
 .cta:hover {
   transform: translateY(-3px) scale(1.03);
-  box-shadow: 0 12px 28px rgba(255, 193, 7, .4);
+  box-shadow: 0 12px 28px rgba(255, 193, 7, .5);
   background: rgba(255, 193, 7, 1);
+  filter: saturate(1.3) brightness(1.1);
 }
 
 .cta.outline {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.15);
   color: var(--gold);
   border: 1px solid var(--border-glass);
   box-shadow: none;
+  filter: saturate(1.2) brightness(1.1);
 }
 
 .cta.outline:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 193, 7, 0.5);
   color: #fff;
 }
 
@@ -311,7 +310,7 @@ main {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, .45);
+  background: rgba(255, 255, 255, .5);
   cursor: pointer;
   transition: all .3s ease;
 }
@@ -321,6 +320,7 @@ main {
 .dot.is-active {
   background: var(--gold);
   transform: scale(1.3);
+  filter: saturate(1.3);
 }
 
 .hero-fade-bottom {
@@ -352,13 +352,14 @@ main {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgba(20, 20, 20, 0.3);
+  background: rgba(20, 20, 20, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass);
   color: var(--gold);
   cursor: pointer;
   transition: all .3s ease;
+  filter: saturate(1.2);
 }
 
 .social a:hover,
@@ -367,6 +368,7 @@ main {
   color: #000;
   border-color: var(--gold);
   transform: scale(1.1) rotate(5deg);
+  filter: saturate(1.3) brightness(1.1);
 }
 
 /* ===== Floating Home Button ===== */
@@ -380,7 +382,7 @@ main {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: rgba(20, 20, 20, 0.3);
+  background: rgba(20, 20, 20, 0.4);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-glass);
@@ -390,6 +392,7 @@ main {
   opacity: 0;
   transform: scale(0.5) translateY(20px);
   pointer-events: none;
+  filter: saturate(1.2);
 }
 
 .home-btn:hover {
@@ -397,6 +400,7 @@ main {
   color: #000;
   border-color: var(--gold);
   transform: scale(1.1) rotate(5deg);
+  filter: saturate(1.3) brightness(1.1);
 }
 
 .project-page .home-btn {
@@ -412,7 +416,7 @@ main {
 }
 
 main > .section {
-  position: relative; /* For parallax context */
+  position: relative;
   background: linear-gradient(180deg, rgba(0, 0, 0, .0), rgba(0, 0, 0, .22));
 }
 
@@ -449,6 +453,7 @@ main > .section:first-of-type {
   letter-spacing: 1px;
   text-transform: uppercase;
   text-align: center;
+  filter: saturate(1.2) brightness(1.1);
 }
 
 
@@ -461,7 +466,7 @@ main > .section:first-of-type {
 .panel,
 .glass-panel-wrapper,
 .service-card {
-  background: rgba(10, 10, 10, .45);
+  background: rgba(10, 10, 10, .5);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
@@ -480,8 +485,8 @@ main > .section:first-of-type {
 .card:hover,
 .service-card:hover {
   transform: translateY(-8px) scale(1.02);
-  box-shadow: 0 15px 50px rgba(0, 0, 0, .5);
-  border-color: rgba(255, 213, 79, 0.4);
+  box-shadow: 0 15px 50px rgba(255, 193, 7, .25);
+  border-color: rgba(255, 193, 7, 0.5);
 }
 
 .thumb {
@@ -491,7 +496,7 @@ main > .section:first-of-type {
   background-position: center;
   overflow: hidden;
   transition: transform .4s ease-out;
-  filter: saturate(190%) brightness(1.1);
+  filter: saturate(210%) brightness(1.1) contrast(1.1);
 }
 
 .card:hover .thumb {
@@ -516,6 +521,7 @@ main > .section:first-of-type {
   margin: 0 0 8px 0;
   font-size: 18px;
   color: var(--text);
+  filter: brightness(1.05);
 }
 
 .price {
@@ -523,6 +529,7 @@ main > .section:first-of-type {
   font-size: 16px;
   margin-bottom: 12px;
   display: block;
+  filter: saturate(1.2) brightness(1.1);
 }
 
 /* ===== NEW Glass Button - General Purpose ===== */
@@ -535,7 +542,7 @@ main > .section:first-of-type {
   padding: 12px 14px;
   border-radius: 10px;
   border: 1px solid var(--border-glass);
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.12);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
   color: #fff;
@@ -543,34 +550,39 @@ main > .section:first-of-type {
   cursor: pointer;
   transition: all .3s ease;
   min-height: 44px;
+  filter: saturate(1.1);
 }
 
 .btn:hover {
-  background: rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 193, 7, 0.4);
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 15px rgba(255, 193, 7, 0.2);
+  filter: saturate(1.2) brightness(1.05);
 }
 
 .btn.book {
   background: var(--gold);
   color: #000;
   border: 1px solid var(--gold);
+  filter: saturate(1.2) brightness(1.05);
 }
 .btn.book:hover {
   background: var(--gold);
-  filter: brightness(1.1);
-  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.3);
+  filter: saturate(1.3) brightness(1.15);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.4);
 }
 
 .card-cta {
   background: transparent;
   border: 1.5px solid var(--gold);
   color: var(--gold);
+  filter: saturate(1.2);
 }
 .card-cta:hover {
   background: var(--gold);
   color: #000;
+  filter: saturate(1.3) brightness(1.1);
 }
 
 
@@ -580,7 +592,7 @@ main > .section:first-of-type {
 }
 
 .card-cta-wrapper {
-  margin-top: auto; /* Pushes the button to the bottom */
+  margin-top: auto;
 }
 
 .glass-panel-wrapper {
@@ -609,12 +621,14 @@ main > .section:first-of-type {
 
 .service-icon svg {
   color: var(--gold);
+  filter: saturate(1.2) brightness(1.1);
 }
 
 .service-title {
   font-size: 20px;
   color: var(--text);
   margin: 0 0 8px;
+  filter: brightness(1.05);
 }
 
 .service-desc {
@@ -622,6 +636,7 @@ main > .section:first-of-type {
   font-size: 15px;
   margin: 0;
   line-height: 1.5;
+  filter: brightness(1.05);
 }
 
 /* ===== Project Details Section ===== */
@@ -653,13 +668,14 @@ main > .section:first-of-type {
   border-radius: 12px;
   margin-bottom: 16px;
   border: 1px solid var(--border);
-  filter: saturate(190%) brightness(1.1);
+  filter: saturate(210%) brightness(1.1) contrast(1.1);
 }
 
 .project-description {
   margin-bottom: 24px;
   color: var(--text);
-  opacity: 0.9;
+  opacity: 0.95;
+  filter: brightness(1.05);
 }
 
 .project-main h3 {
@@ -667,6 +683,7 @@ main > .section:first-of-type {
   font-size: 22px;
   margin-top: 24px;
   margin-bottom: 12px;
+  filter: saturate(1.2) brightness(1.1);
 }
 
 .project-main ul {
@@ -686,6 +703,7 @@ main > .section:first-of-type {
   position: absolute;
   left: 0;
   color: var(--gold);
+  filter: saturate(1.2);
 }
 
 .project-sidebar .info-box {
@@ -702,6 +720,7 @@ main > .section:first-of-type {
   color: var(--gold);
   margin: 0 0 12px 0;
   font-size: 18px;
+  filter: saturate(1.2) brightness(1.1);
 }
 
 .info-box dl,
@@ -729,6 +748,7 @@ main > .section:first-of-type {
 .info-box dd {
   font-weight: 700;
   text-align: right;
+  filter: brightness(1.05);
 }
 
 .info-box .payment-item {
@@ -782,7 +802,7 @@ main > .section:first-of-type {
   height: 100%;
   object-fit: cover;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  filter: saturate(190%) brightness(1.1);
+  filter: saturate(210%) brightness(1.1) contrast(1.1);
 }
 
 .project-gallery-grid .gallery-image-container:hover img {
@@ -806,13 +826,14 @@ main > .section:first-of-type {
   background-position: center;
   margin: -24px -24px 20px -24px;
   border-bottom: 1px solid var(--border);
-  filter: saturate(190%) brightness(1.1);
+  filter: saturate(210%) brightness(1.1) contrast(1.1);
 }
 
 .form h4 {
   text-align: center;
   padding: 12px;
   color: var(--gold);
+  filter: saturate(1.2) brightness(1.1);
 }
 
 .field {
@@ -824,7 +845,7 @@ main > .section:first-of-type {
 .field span {
   font-size: 14px;
   font-weight: 500;
-  opacity: 0.9;
+  opacity: 0.95;
   padding-bottom: 2px;
   color: var(--text);
 }
@@ -833,7 +854,7 @@ main > .section:first-of-type {
   padding: 12px;
   border-radius: 10px;
   border: 1px solid var(--border-glass);
-  background: rgba(0,0,0,0.3);
+  background: rgba(0,0,0,0.4);
   color: #fff;
   outline: none;
   min-height: 44px;
@@ -841,7 +862,7 @@ main > .section:first-of-type {
 
 .field input:focus {
   border-color: var(--gold);
-  box-shadow: 0 0 10px rgba(255,193,7,0.3);
+  box-shadow: 0 0 10px rgba(255,193,7,0.4);
 }
 
 .send {
@@ -853,7 +874,7 @@ main > .section:first-of-type {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 0;
-  background: rgba(20, 20, 20, 0.3);
+  background: rgba(20, 20, 20, 0.4);
   border: 1px solid var(--border-glass);
   border-radius: 12px;
   overflow: hidden;
@@ -866,7 +887,7 @@ main > .section:first-of-type {
 .seg-btn {
   padding: 10px 12px;
   background: transparent;
-  color: #cbd5e1;
+  color: #E0E0E0;
   font-weight: 800;
   border: 0;
   cursor: pointer;
@@ -878,6 +899,7 @@ main > .section:first-of-type {
 .seg-btn.is-active {
   background: var(--gold);
   color: #000;
+  filter: saturate(1.2) brightness(1.05);
 }
 
 .segpanels {
@@ -906,7 +928,7 @@ main > .section:first-of-type {
   overflow: hidden;
   background-size: cover;
   background-position: center;
-  filter: saturate(190%) brightness(1.1);
+  filter: saturate(210%) brightness(1.1) contrast(1.1);
 }
 
 .about-hero::after {
@@ -918,7 +940,7 @@ main > .section:first-of-type {
 
 .about-text {
   margin-top: 14px;
-  color: #e5e7eb;
+  color: #F5F5F5;
   padding: 16px;
 }
 
@@ -934,6 +956,7 @@ main > .section:first-of-type {
   left: 0;
   color: var(--gold);
   font-weight: bold;
+  filter: saturate(1.2);
 }
 
 .map-embed iframe {
@@ -962,7 +985,7 @@ main > .section:first-of-type {
   max-width: 900px;
   background: var(--panel-bg);
   border: 1px solid var(--border);
-  color: #e5e7eb;
+  color: #F5F5F5;
   border-radius: 12px;
   padding: 10px 14px;
   display: flex;
@@ -981,13 +1004,14 @@ main > .section:first-of-type {
   padding: 8px 12px;
   font-weight: 800;
   cursor: pointer;
+  filter: saturate(1.2) brightness(1.05);
 }
 
 /* ===== Modals (QR & Lightbox) ===== */
 .modal-overlay, .lightbox-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   z-index: 1000;
@@ -1004,7 +1028,7 @@ main > .section:first-of-type {
   border-radius: 16px;
   background: var(--bg);
   border: 2px solid var(--gold);
-  box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 10px 50px rgba(255, 193, 7, 0.3);
 }
 
 .modal-content img {
@@ -1031,6 +1055,7 @@ main > .section:first-of-type {
   place-items: center;
   line-height: 1;
   padding: 0;
+  filter: saturate(1.2) brightness(1.05);
 }
 
 .lightbox-content {
@@ -1049,6 +1074,7 @@ main > .section:first-of-type {
   display: block;
   border-radius: 8px;
   border: 2px solid var(--border);
+  filter: saturate(200%) brightness(1.05);
 }
 
 .lightbox-close {
@@ -1070,7 +1096,7 @@ main > .section:first-of-type {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.3);
+  background: rgba(0, 0, 0, 0.5);
   color: #fff;
   border: 1px solid var(--border-glass);
   border-radius: 50%;
@@ -1084,7 +1110,7 @@ main > .section:first-of-type {
   transition: background 0.3s ease;
 }
 .lightbox-nav:hover {
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
 }
 .lightbox-nav.prev { left: 15px; }
 .lightbox-nav.next { right: 15px; }
@@ -1094,7 +1120,7 @@ main > .section:first-of-type {
   font-size: 16px;
   font-weight: 500;
   margin-top: 8px;
-  background: rgba(0,0,0,0.5);
+  background: rgba(0,0,0,0.6);
   padding: 4px 10px;
   border-radius: 20px;
 }
@@ -1200,7 +1226,7 @@ main > .section:first-of-type {
   .mobile-nav-overlay {
     position: fixed;
     inset: 0;
-    background: rgba(5, 5, 5, 0.8);
+    background: rgba(5, 5, 5, 0.85);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     z-index: 1000;

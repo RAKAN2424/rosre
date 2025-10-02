@@ -11,6 +11,14 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'cityedgedevelopments.com',
       },
+      {
+        protocol: 'https',
+        hostname: 'imagekit.io',
+      },
+      {
+        protocol: 'https',
+        hostname: 'ik.imagekit.io',
+      },
     ],
   },
 };
