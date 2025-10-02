@@ -1,12 +1,12 @@
-/* ===== الأساسيات والهوية ===== */
+/* ===== تحديث الألوان ليكون الدهبي الأساسي أغمق + خلفيات زجاجية سوداء شفافة ===== */
 :root {
-  --gold: #FFC107; /* More saturated, vibrant gold */
-  --gold-2: #FFD54F; /* More saturated secondary gold */
-  --panel-bg: rgba(20, 20, 20, 0.5);
-  --muted: #B0BEC5; /* More saturated muted color */
-  --text: #FFFFFF; /* Pure white for maximum contrast */
-  --border: rgba(255, 193, 7, 0.4); /* More visible border */
-  --border-glass: rgba(255, 193, 7, 0.35); /* Tinted with gold */
+--gold: #DAA520; /* دهبي غامق (GoldenRod) */
+--gold-2: #B8860B; /* دهبي ثانوي أغمق */
+--panel-bg: rgba(0, 0, 0, 0.6); /* خلفية سوداء شفافة */
+--muted: #B0BEC5;
+--text: #FFFFFF;
+--border: rgba(218, 165, 32, 0.5); /* حدود دهبية أغمق */
+--border-glass: rgba(218, 165, 32, 0.35);}
 }
 * {
   box-sizing: border-box;
