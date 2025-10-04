@@ -115,7 +115,7 @@ const PropertyGallery: FC<{ projects: Project[] }> = ({ projects }) => {
   const { t } = useTranslation();
   const sectionRef = useScrollAnimate({ threshold: 0.05 });
   return (
-    <section id="gallery-section" className="section scroll-animate" ref={sectionRef}>
+    <section id="gallery-section" className="section glass-section scroll-animate" ref={sectionRef}>
       <div className="container">
         <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('galleryTitle') }} />
         <div className="grid">
@@ -132,7 +132,7 @@ const ServicesSection: FC = () => {
   const { t } = useTranslation();
   const sectionRef = useScrollAnimate({ threshold: 0.1 });
   return (
-    <section id="services" className="section scroll-animate" ref={sectionRef}>
+    <section id="services" className="section glass-section scroll-animate" ref={sectionRef}>
       <div className="container">
         <h2 className="section-title" data-i18n="ourServices" dangerouslySetInnerHTML={{ __html: t('ourServices') }} />
         <div className="services-grid">
@@ -182,7 +182,7 @@ const AboutSection: FC = () => {
   const [activeTab, setActiveTab] = useState('about');
   const sectionRef = useScrollAnimate();
   return (
-    <section id="about-section" className="section scroll-animate" ref={sectionRef}>
+    <section id="about-section" className="section glass-section scroll-animate" ref={sectionRef}>
       <div className="container">
         <div className="segbar">
           <button
@@ -239,7 +239,7 @@ const ContactForm: FC = () => {
     window.open(url, '_blank');
   };
   return (
-    <section id="contact" className="section scroll-animate" ref={sectionRef}>
+    <section id="contact" className="section glass-section scroll-animate" ref={sectionRef}>
       <div className="container">
         <h2 className="section-title" dangerouslySetInnerHTML={{ __html: t('requestCallback') }} />
         <div className="contact">

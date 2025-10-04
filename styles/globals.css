@@ -1,12 +1,12 @@
 /* ===== تحديث الألوان ليكون الدهبي الأساسي أغمق + خلفيات زجاجية سوداء شفافة ===== */
 :root {
---gold: #DAA520; /* دهبي غامق (GoldenRod) */
---gold-2: #B8860B; /* دهبي ثانوي أغمق */
---panel-bg: rgba(0, 0, 0, 0.6); /* خلفية سوداء شفافة */
---muted: #B0BEC5;
---text: #FFFFFF;
---border: rgba(218, 165, 32, 0.5); /* حدود دهبية أغمق */
---border-glass: rgba(218, 165, 32, 0.35);}
+  --gold: #DAA520; /* دهبي غامق (GoldenRod) */
+  --gold-2: #B8860B; /* دهبي ثانوي أغمق */
+  --panel-bg: rgba(0, 0, 0, 0.6); /* خلفية سوداء شفافة */
+  --muted: #B0BEC5;
+  --text: #FFFFFF;
+  --border: rgba(218, 165, 32, 0.5); /* حدود دهبية أغمق */
+  --border-glass: rgba(218, 165, 32, 0.35);
 }
 * {
   box-sizing: border-box;
@@ -416,6 +416,13 @@ main {
 /* ===== الأقسام الموحدة ===== */
 .section {
   padding-block: 64px;
+}
+
+.glass-section {
+  background: rgba(0, 0, 0, 0.45);
+  border: 1px solid var(--border-glass);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 main > .section {
@@ -887,6 +894,11 @@ main > .section:first-of-type {
   -webkit-backdrop-filter: blur(8px);
 }
 
+.glass-section .segbar {
+  background: rgba(18, 18, 18, 0.55);
+  color: var(--text);
+}
+
 .seg-btn {
   padding: 10px 12px;
   background: transparent;
@@ -897,6 +909,10 @@ main > .section:first-of-type {
   position: relative;
   transition: all .3s ease;
   min-height: 44px;
+}
+
+.glass-section .seg-btn {
+  color: #f5f5f5;
 }
 
 .seg-btn.is-active {
